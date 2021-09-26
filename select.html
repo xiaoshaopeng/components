@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <style>
+    .datalist {
+      height: 240px;
+      overflow-y: scroll;
+    }
+
+    .els-input {
+      position: relative;
+    }
+
+    .selfInput {
+      background-color: #fff;
+      background-image: none;
+      border-radius: 4px;
+      border: 1px solid #dcdfe6;
+      box-sizing: border-box;
+      color: #606266;
+      display: inline-block;
+      font-size: inherit;
+      height: 40px;
+      line-height: 40px;
+      outline: none;
+      padding: 0 15px;
+      transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+      width: 100%;
+    }
+
+    .el-input:focus {
+      border-color: #409eff;
+    }
+
+    .el-input__suffix {
+      position: absolute;
+      height: 100%;
+      right: 5px;
+      top: 0;
+      text-align: center;
+      color: #c0c4cc;
+      transition: all .3s;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .el-input__suffix-inner {
+      pointer-events: all;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="els-input">
+      <input type="text" class="selfInput">
+      <span class="el-input__suffix">
+        <span class="el-input__suffix-inner">logo</span>
+      </span>
+    </div>
+
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+
+        }
+      },
+      methods: {
+        scrol() {
+          console.log(1)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

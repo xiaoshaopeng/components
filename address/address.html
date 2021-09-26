@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>省市区地址三级联动</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="./data.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <label for="">省：<select name="" id="province" @change="provinceChange">
+        <option v-for="(province,i) in provinces" :value="province.name">{{ province.name }}</option>
+      </select></label>
+    <label for="">市：<select name="" id="city" @change="cityChange">
+        <option v-for="(city,i) in citys" :value="city.name">{{ city.name }}</option>
+      </select></label>
+    <label for="">区：<select name="" id="area">
+        <option v-for="(area,i) in areas" :value="area">{{ area }}</option>
+      </select></label>
+  </div>
+
+
+  <script>
+    new Vue({
+      el: "#app",
+      data() {
+        return {
+          provinces: [],
+          citys: [],
+          areas: [],
+        }
+      },
+      created() {
+        this.init();
+      },
+      methods: {
+        // 初始化数据
+        init() {
+          let temp = data.filter(d => {
+            this.provinces.push(d)
+          })
+          this.citys.push(this.provinces[0].city[0])
+          this.areas.push(this.provinces[0].city[0].area[0])
+        },
+        provinceChange() {
+          let val = document.querySelector("#province").value;  // 获取省的值
+          this.citys = this.provinces.filter(d => d.name == val)[0].city
+          this.areas = this.citys.filter(c => c.area)[0].area
+        },
+        cityChange() {
+          let val = document.querySelector("#city").value;
+          this.areas = this.citys.filter(c => c.name == val)[0].area
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>
