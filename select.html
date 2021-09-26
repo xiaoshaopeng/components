@@ -54,18 +54,63 @@
     .el-input__suffix-inner {
       pointer-events: all;
     }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .selectList {
+      max-height: 240px;
+      width: 100%;
+      overflow-y: scroll;
+    }
+
+    /* 可以滚动，但是看不见滚动挑 */
+    .selectList::-webkit-scrollbar {
+      display: none;
+    }
+
+    .selectList li {
+      font-size: 14px;
+      padding: 0 20px;
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #606266;
+      height: 34px;
+      line-height: 34px;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .selectList li:hover {
+      background: #f5f7fa;
+    }
+
+    .nodata {
+      color: #f5f6f8 !important;
+    }
   </style>
 </head>
 
 <body>
   <div id="app">
     <div class="els-input">
-      <input type="text" class="selfInput">
+      <input v-model="content" @focus="getFoucs" @blur="getFoucs" type="text" class="selfInput">
       <span class="el-input__suffix">
         <span class="el-input__suffix-inner">logo</span>
       </span>
     </div>
-
+    <ul v-if="true" class="selectList" @scroll="getReach">
+      <template v-if="arr>0">
+        <li v-for="item in arr" :key="item" @click="itemClick(item)">{{ item }}</li>
+      </template>
+      <template v-else>
+        <li class='nodata'>没有更多数据</li>
+      </template>
+    </ul>
   </div>
 
   <script>
@@ -73,12 +118,29 @@
       el: '#app',
       data() {
         return {
-
+          status: false,
+          content: '',
+          arr: 10,
         }
       },
       methods: {
-        scrol() {
-          console.log(1)
+        getFoucs() {
+          setTimeout(() => {
+            this.status = !this.status;
+          }, 100);
+        },
+        itemClick(item) {
+          this.content = item;
+        },
+        getReach() {
+          let uldom = document.querySelector('.selectList');
+          // 触底
+          if (uldom.scrollTop + uldom.clientHeight == uldom.scrollHeight) {
+            if (this.arr <= 50) {
+              this.arr += 10;
+            }
+          }
+
         }
       }
     })
